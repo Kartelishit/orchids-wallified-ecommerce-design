@@ -5,11 +5,15 @@ export default function Footer() {
     <footer className="bg-black text-white pt-20 pb-10">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          <div>
-            <Link href="/" className="text-3xl font-black tracking-tighter mb-6 block">
-              WALLIFIED<span className="text-[#FF0000]">.</span>
-            </Link>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+            <div>
+                <Link href="/" className="mb-6 flex items-center">
+                  <img 
+                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/9d2919b8-9e68-4c70-9a71-6175f2e26831/Gemini_Generated_Image_rmm9rsrmm9rsrmm9-removebg-preview-1767885732389.png?width=8000&height=8000&resize=contain" 
+                    alt="WALLIFIED" 
+                    className="h-12 w-auto object-contain transition-all duration-300 hover:scale-105"
+                  />
+                </Link>
+              <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
               Premium posters for the modern walls. Build a space that truly reflects your identity with our high-quality prints.
             </p>
           </div>

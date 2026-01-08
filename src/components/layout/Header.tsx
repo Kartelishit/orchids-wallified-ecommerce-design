@@ -77,13 +77,18 @@ export default function Header() {
         isScrolled ? "bg-white/90 backdrop-blur-md shadow-2xl py-4" : "bg-transparent py-8"
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="text-2xl font-black tracking-tighter text-black">
-          WALLIFIED<span className="text-[#FF0000]">.</span>
-        </Link>
+        <div className="container mx-auto px-6 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center">
+            <img 
+              src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/9d2919b8-9e68-4c70-9a71-6175f2e26831/Gemini_Generated_Image_rmm9rsrmm9rsrmm9-removebg-preview-1767885732389.png?width=8000&height=8000&resize=contain" 
+              alt="WALLIFIED" 
+              className="h-10 w-auto object-contain transition-all duration-300 hover:scale-105"
+              style={{ filter: 'brightness(0) drop-shadow(0 0 8px rgba(255, 0, 0, 0.6))' }}
+            />
+          </Link>
 
-        {/* Desktop Nav */}
+          {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
           <div
             className="relative group"
@@ -159,15 +164,22 @@ export default function Header() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            className="fixed inset-0 bg-white z-[200] p-8 flex flex-col"
-          >
-            <div className="flex justify-between items-center mb-12">
-              <span className="text-2xl font-black tracking-tighter">WALLIFIED.</span>
-              <button onClick={() => setIsMobileMenuOpen(false)}>
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              className="fixed inset-0 bg-white z-[200] p-8 flex flex-col"
+            >
+                <div className="flex justify-between items-center mb-12">
+                  <Link href="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+                    <img 
+                      src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/9d2919b8-9e68-4c70-9a71-6175f2e26831/Gemini_Generated_Image_rmm9rsrmm9rsrmm9-removebg-preview-1767885732389.png?width=8000&height=8000&resize=contain" 
+                      alt="WALLIFIED" 
+                      className="h-10 w-auto object-contain"
+                      style={{ filter: 'brightness(0) drop-shadow(0 0 8px rgba(255, 0, 0, 0.6))' }}
+                    />
+                  </Link>
+                  <button onClick={() => setIsMobileMenuOpen(false)}>
                 <X size={32} />
               </button>
             </div>
