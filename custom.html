@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Design | WALLIFIED</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+    <div id="announcement-container" class="fixed top-0 left-0 right-0 z-[110]"></div>
+    <div id="header-container"></div>
+
+    <main class="pt-[160px] pb-32">
+        <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div>
+                <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-12 leading-[0.85]">Your Vision <br />Our Craft</h1>
+                <p class="text-zinc-500 text-lg mb-12 uppercase font-bold tracking-widest max-w-md">Can't find what you're looking for? Let us create a custom masterpiece just for you.</p>
+                
+                <ul class="space-y-6 mb-12">
+                    <li class="flex items-center gap-4">
+                        <div class="w-6 h-6 bg-[#FF0000] text-white flex items-center justify-center rounded-full"><i data-lucide="check" class="w-4 h-4"></i></div>
+                        <span class="text-sm font-bold uppercase tracking-widest">High-Resolution Upscaling Included</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="w-6 h-6 bg-[#FF0000] text-white flex items-center justify-center rounded-full"><i data-lucide="check" class="w-4 h-4"></i></div>
+                        <span class="text-sm font-bold uppercase tracking-widest">Premium 300GSM Synthetic Paper</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="w-6 h-6 bg-[#FF0000] text-white flex items-center justify-center rounded-full"><i data-lucide="check" class="w-4 h-4"></i></div>
+                        <span class="text-sm font-bold uppercase tracking-widest">Global Shipping Available</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-black p-12 shadow-2xl">
+                <form class="space-y-8" @submit.prevent="alert('Request received! Check your WhatsApp/Email soon.')">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">Upload Your Image/Reference</label>
+                        <div class="border-2 border-dashed border-zinc-800 hover:border-[#FF0000] transition-colors p-12 text-center group cursor-pointer relative">
+                            <input type="file" class="absolute inset-0 opacity-0 cursor-pointer">
+                            <i data-lucide="upload-cloud" class="w-12 h-12 text-zinc-700 mx-auto mb-4 group-hover:text-[#FF0000] transition-colors"></i>
+                            <p class="text-zinc-500 text-xs font-bold uppercase tracking-widest">Click to upload or drag & drop</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">Preferred Size</label>
+                            <select class="w-full bg-transparent border-b border-zinc-800 text-white py-4 focus:border-[#FF0000] outline-none font-bold uppercase text-xs tracking-widest">
+                                <option class="bg-black">A4 Size</option>
+                                <option class="bg-black">A3 Size</option>
+                                <option class="bg-black">Custom Size</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">WhatsApp Number</label>
+                            <input type="tel" class="w-full bg-transparent border-b border-zinc-800 text-white py-4 focus:border-[#FF0000] outline-none font-bold uppercase text-xs tracking-widest" placeholder="+91" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">Describe Your Vision</label>
+                        <textarea class="w-full bg-transparent border-b border-zinc-800 text-white py-4 focus:border-[#FF0000] outline-none font-bold uppercase text-xs tracking-widest resize-none" rows="3" placeholder="Styles, colors, or specific elements..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-[#FF0000] text-white py-6 font-black uppercase tracking-[0.2em] text-xs hover:bg-white hover:text-black transition-all duration-500">Request Custom Quote</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/components.js"></script>
+</body>
+</html>

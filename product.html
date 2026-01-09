@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | WALLIFIED</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-white text-black antialiased" x-data="{
+    product: null,
+    loading: true,
+    selectedSize: 'A4',
+    selectedMaterial: 'Premium Paper (300GSM)',
+    quantity: 1,
+    sizes: [
+        { name: 'A4', dimensions: '8.3 x 11.7 in', priceMultiplier: 1 },
+        { name: 'A3', dimensions: '11.7 x 16.5 in', priceMultiplier: 1.8 }
+    ],
+    materials: [
+        { name: 'Premium Paper (300GSM)', priceAdd: 0 },
+        { name: 'Synthetic (Non-Tearable)', priceAdd: 150 }
+    ],
+    async init() {
+        const id = new URLSearchParams(window.location.search).get('id');
+        if (!id) {
+            window.location.href = '/shop.html';
+            return;
+        }
+        const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
+        if (error || !data) {
+            window.location.href = '/shop.html';
+            return;
+        }
+        this.product = data;
+        this.loading = false;
+        lucide.createIcons();
+    },
+    calculatePrice() {
+        if (!this.product) return 0;
+        const sizeObj = this.sizes.find(s => s.name === this.selectedSize);
+        const materialObj = this.materials.find(m => m.name === this.selectedMaterial);
+        return Math.round((this.product.base_price * sizeObj.priceMultiplier) + materialObj.priceAdd);
+    }
+}">
+
+    <div id="announcement-container" class="fixed top-0 left-0 right-0 z-[110]"></div>
+    <div id="header-container"></div>
+
+    <main class="pt-[112px]">
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <div x-show="loading" class="flex justify-center py-20">
+                    <div class="w-12 h-12 border-4 border-black border-t-[#FF0000] rounded-full animate-spin"></div>
+                </div>
+
+                <div x-show="!loading && product" class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                    <!-- Product Image -->
+                    <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden shadow-2xl">
+                        <img :src="product.image_url" :alt="product.name" class="w-full h-full object-cover">
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="flex flex-col">
+                        <div class="mb-10">
+                            <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-[#FF0000] mb-4" x-text="product.category || 'Poster'"></h4>
+                            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6" x-text="product.name"></h1>
+                            <p class="text-4xl font-black text-black" x-text="'₹' + calculatePrice()"></p>
+                        </div>
+
+                        <p class="text-zinc-500 text-lg leading-relaxed mb-12 uppercase tracking-tight font-medium" x-text="product.description || 'Premium high-quality poster for your modern walls.'"></p>
+
+                        <!-- Options -->
+                        <div class="space-y-12 mb-12">
+                            <!-- Size Selection -->
+                            <div>
+                                <h4 class="text-[10px] font-black uppercase tracking-widest mb-6">Select Size</h4>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <template x-for="size in sizes" :key="size.name">
+                                        <button 
+                                            @click="selectedSize = size.name"
+                                            :class="selectedSize === size.name ? 'border-black bg-black text-white' : 'border-zinc-200 hover:border-black'"
+                                            class="border-2 p-6 transition-all duration-300 text-left relative group"
+                                        >
+                                            <span class="block text-sm font-black uppercase tracking-widest mb-1" x-text="size.name"></span>
+                                            <span class="block text-[10px] uppercase tracking-widest opacity-60" x-text="size.dimensions"></span>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Material Selection -->
+                            <div>
+                                <h4 class="text-[10px] font-black uppercase tracking-widest mb-6">Select Material</h4>
+                                <div class="grid grid-cols-1 gap-4">
+                                    <template x-for="material in materials" :key="material.name">
+                                        <button 
+                                            @click="selectedMaterial = material.name"
+                                            :class="selectedMaterial === material.name ? 'border-black bg-black text-white' : 'border-zinc-200 hover:border-black'"
+                                            class="border-2 p-6 transition-all duration-300 text-left flex justify-between items-center"
+                                        >
+                                            <span class="text-sm font-black uppercase tracking-widest" x-text="material.name"></span>
+                                            <span class="text-[10px] font-black" x-show="material.priceAdd > 0" x-text="'+ ₹' + material.priceAdd"></span>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add to Cart -->
+                        <div class="flex gap-4">
+                            <button 
+                                @click="addToCart(product, selectedSize, selectedMaterial, calculatePrice())"
+                                class="flex-grow bg-[#FF0000] text-white py-6 font-black uppercase tracking-[0.2em] text-xs hover:bg-black transition-all duration-500 shadow-xl hover:shadow-2xl"
+                            >
+                                Add to Bag
+                            </button>
+                        </div>
+
+                        <!-- Quick Info -->
+                        <div class="mt-12 pt-12 border-t border-zinc-100 grid grid-cols-2 gap-8">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-zinc-50 flex items-center justify-center rounded-full text-[#FF0000]"><i data-lucide="truck" class="w-5 h-5"></i></div>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Free Delivery</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-zinc-50 flex items-center justify-center rounded-full text-[#FF0000]"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Premium Quality</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/components.js"></script>
+</body>
+</html>

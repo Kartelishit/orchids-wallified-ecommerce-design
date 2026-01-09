@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund & Replacement | WALLIFIED</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+    <div id="announcement-container" class="fixed top-0 left-0 right-0 z-[110]"></div>
+    <div id="header-container"></div>
+
+    <main class="pt-[160px] pb-32">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h1 class="text-4xl md:text-6xl font-black text-black tracking-tighter uppercase mb-12">
+                Refund & Replacement
+            </h1>
+            <div class="h-1 w-24 bg-[#FF0000] mb-12"></div>
+            
+            <div class="prose prose-zinc prose-sm md:prose-base max-w-none text-gray-500 space-y-12 font-medium">
+                <section>
+                    <h2 class="text-black font-black uppercase tracking-tight text-xl mb-4">No Refund Policy</h2>
+                    <p>At WALLIFIED, we print each poster specifically for your order. Because of this personalized nature, <strong class="text-black italic">we do not offer refunds</strong> once an order has been processed and printed.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-black font-black uppercase tracking-tight text-xl mb-4">Replacement Policy</h2>
+                    <p>We do, however, offer a rock-solid replacement policy. We will replace your product if:</p>
+                    <ul class="list-disc pl-5 space-y-4">
+                        <li>The product arrived damaged during transit.</li>
+                        <li>The print quality has visible defects.</li>
+                        <li>The wrong product was delivered.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-black font-black uppercase tracking-tight text-xl mb-4">How to Request a Replacement</h2>
+                    <ol class="list-decimal pl-5 space-y-4">
+                        <li>Capture a clear photo/video of the damaged product and the packaging.</li>
+                        <li>Send the details along with your Order ID to our WhatsApp support within 48 hours of delivery.</li>
+                        <li>Once verified, we will ship a fresh replacement to you at no extra cost.</li>
+                    </ol>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/components.js"></script>
+</body>
+</html>
