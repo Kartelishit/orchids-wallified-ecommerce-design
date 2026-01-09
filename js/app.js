@@ -65,7 +65,7 @@ window.api = {
     const { data, error } = await supabaseClient
       .from('products')
       .select('*')
-      .eq('category', category);
+      .ilike('category', `%${category}%`);
     if (error) { console.error('Error fetching category products:', error); return []; }
     return data;
   },
@@ -76,6 +76,43 @@ window.api = {
       { name: "Ananya P.", rating: 5, text: "Ordered the Anime Trio, looks amazing on my wall. Fast delivery too." },
       { name: "Vikram M.", rating: 4, text: "Packaging was solid. No bends at all. Highly recommend Wallified." }
     ];
+  },
+
+  getRealReviews: async () => {
+    if (!supabaseClient) return [];
+    const { data, error } = await supabaseClient
+      .from('reviews')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) { console.error('Error fetching reviews:', error); return []; }
+    return data;
+  },
+
+  addReview: async (reviewData) => {
+    if (!supabaseClient) return null;
+    const { data, error } = await supabaseClient
+      .from('reviews')
+      .insert([reviewData])
+      .select()
+      .single();
+    if (error) { console.error('Error adding review:', error); throw error; }
+    return data;
+  },
+
+  uploadReviewMedia: async (file) => {
+    if (!supabaseClient) return null;
+    const fileName = `${Date.now()}-${file.name.replace(/\s/g, '_')}`;
+    const { data, error } = await supabaseClient.storage
+      .from('review-media')
+      .upload(fileName, file);
+    
+    if (error) { console.error('Error uploading media:', error); return null; }
+    
+    const { data: { publicUrl } } = supabaseClient.storage
+      .from('review-media')
+      .getPublicUrl(fileName);
+    
+    return publicUrl;
   },
 
   getFaqs: async () => {

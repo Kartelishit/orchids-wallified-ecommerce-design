@@ -4,7 +4,7 @@
     <script src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'></script>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Custom / Personalized Posters | WALLIFIED</title>
+    <title>Movie & Series Posters | WALLIFIED</title>
     <script src='https://cdn.tailwindcss.com'></script>
     <script defer src='https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js'></script>
     <script src='https://unpkg.com/lucide@latest'></script>
@@ -19,7 +19,7 @@
 <body class='bg-white text-black antialiased' x-data='{{
     products: [],
     async init() {{
-        this.products = await window.api.getProductsByCategory("custom");
+        this.products = await window.api.getProductsByCategory("movies");
     }}
 }}'>
     <div id='announcement-container' class='fixed top-0 left-0 right-0 z-[110]'></div>
@@ -28,7 +28,7 @@
     <main class='pt-[112px] pb-24'>
         <section class='py-20 bg-zinc-50 border-b border-zinc-100'>
             <div class='container mx-auto px-6'>
-                <h1 class='text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4'>Custom / Personalized Posters</h1>
+                <h1 class='text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4'>Movie & Series Posters</h1>
                 <p class='text-zinc-400 font-medium uppercase tracking-[0.2em] text-xs'>Premium prints for your collection</p>
             </div>
         </section>

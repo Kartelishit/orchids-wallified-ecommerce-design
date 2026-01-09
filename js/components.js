@@ -24,11 +24,11 @@ const components = {
           isMobileMenuOpen: false, 
           activeDropdown: null,
           categories: [
-            { name: 'Cyberpunk', slug: 'cyberpunk' },
-            { name: 'Abstract', slug: 'abstract' },
-            { name: 'Retro', slug: 'retro' },
-            { name: 'Nature', slug: 'nature' },
-            { name: 'Space', slug: 'space' }
+            { name: 'Anime', slug: 'anime' },
+            { name: 'Movies', slug: 'movies' },
+            { name: 'Music', slug: 'music' },
+            { name: 'Motivational', slug: 'motivational' },
+            { name: 'Minimalist', slug: 'minimalist' }
           ],
           init() {
             window.addEventListener('scroll', () => this.isScrolled = window.scrollY > 50);
@@ -53,7 +53,7 @@ const components = {
               <div x-show="activeDropdown === 'shop'" x-transition class="absolute top-full left-0 w-72 bg-white shadow-[20px_20px_60px_rgba(0,0,0,0.1)] py-8 px-6 z-50 border-t-4 border-[#FF0000]">
                 <div class="grid grid-cols-1 gap-4">
                   <template x-for="cat in categories" :key="cat.slug">
-                    <a :href="'/shop.html?category=' + cat.slug" class="group flex items-center justify-between text-black hover:text-[#FF0000] transition-colors">
+                    <a :href="'/' + cat.slug + '.html'" class="group flex items-center justify-between text-black hover:text-[#FF0000] transition-colors">
                       <span class="text-[10px] font-black uppercase tracking-[0.2em]" x-text="cat.name"></span>
                       <div class="w-0 group-hover:w-4 h-[2px] bg-[#FF0000] transition-all duration-300"></div>
                     </a>
@@ -65,7 +65,7 @@ const components = {
               </div>
             </div>
 
-            <a href="/collections.html" class="text-black font-bold uppercase text-xs tracking-widest hover:text-[#FF0000] transition-colors">Collections</a>
+            <a href="/review.html" class="text-black font-bold uppercase text-xs tracking-widest hover:text-[#FF0000] transition-colors">Reviews</a>
             <a href="/custom.html" class="text-black font-bold uppercase text-xs tracking-widest hover:text-[#FF0000] transition-colors">Custom Design</a>
             
             <div class="relative group" @mouseenter="activeDropdown = 'help'" @mouseleave="activeDropdown = null">
@@ -95,6 +95,7 @@ const components = {
 
           <div class="flex items-center gap-6">
             <button class="text-black hover:text-[#FF0000] transition-colors"><i data-lucide="search" class="w-5 h-5"></i></button>
+            <a href="/login.html" class="text-black hover:text-[#FF0000] transition-colors"><i data-lucide="user" class="w-5 h-5"></i></a>
             <a href="/cart.html" class="relative text-black hover:text-[#FF0000] transition-colors">
               <i data-lucide="shopping-cart" class="w-5 h-5"></i>
               <span x-show="cartCount > 0" class="absolute -top-2 -right-2 bg-[#FF0000] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center" x-text="cartCount"></span>
@@ -113,9 +114,10 @@ const components = {
           </div>
           <div class="flex flex-col gap-6">
             <a href="/shop.html" class="text-3xl font-black uppercase tracking-tighter hover:text-[#FF0000]">Shop</a>
-            <a href="/collections.html" class="text-3xl font-black uppercase tracking-tighter hover:text-[#FF0000]">Collections</a>
+            <a href="/review.html" class="text-3xl font-black uppercase tracking-tighter hover:text-[#FF0000]">Reviews</a>
             <a href="/custom.html" class="text-3xl font-black uppercase tracking-tighter hover:text-[#FF0000]">Custom</a>
             <a href="/contact.html" class="text-3xl font-black uppercase tracking-tighter hover:text-[#FF0000]">Contact</a>
+            <a href="/login.html" class="text-3xl font-black uppercase tracking-tighter hover:text-[#FF0000]">Login</a>
           </div>
         </div>
       </header>
@@ -140,7 +142,7 @@ const components = {
               <h4 class="text-sm font-bold uppercase tracking-widest mb-6">Quick Links</h4>
               <ul class="flex flex-col gap-4">
                 <li><a href="/shop.html" class="text-gray-400 hover:text-[#FF0000] transition-colors text-sm">Shop All</a></li>
-                <li><a href="/collections.html" class="text-gray-400 hover:text-[#FF0000] transition-colors text-sm">Collections</a></li>
+                <li><a href="/review.html" class="text-gray-400 hover:text-[#FF0000] transition-colors text-sm">Reviews</a></li>
                 <li><a href="/custom.html" class="text-gray-400 hover:text-[#FF0000] transition-colors text-sm">Custom Posters</a></li>
                 <li><a href="/contact.html" class="text-gray-400 hover:text-[#FF0000] transition-colors text-sm">Contact Us</a></li>
               </ul>
@@ -190,5 +192,5 @@ window.renderComponents = () => {
   if (headerContainer) headerContainer.innerHTML = components.header(window.getCartCount ? window.getCartCount() : 0);
   if (footerContainer) footerContainer.innerHTML = components.footer();
 
-  lucide.createIcons();
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 };
